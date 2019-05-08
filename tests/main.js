@@ -1,4 +1,5 @@
 import assert from "assert";
+import '../imports/api/task.test';
 
 describe("simple-todos", function () {
   it("package.json has correct name", async function () {
@@ -18,3 +19,5 @@ describe("simple-todos", function () {
     });
   }
 });
+
+
