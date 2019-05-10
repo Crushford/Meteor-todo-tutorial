@@ -6,6 +6,7 @@ import { Tasks } from '../api/tasks.js';
  
 import './body.html';
 import './task.js';
+import './analytics.js';
 
 
 Template.body.onCreated(function bodyOnCreated(){
@@ -14,18 +15,23 @@ Template.body.onCreated(function bodyOnCreated(){
 });
  
 Template.body.helpers({
-tasks(){
-    const instance = Template.instance();
-    if (instance.state.get('hideCompleted')){
-        //if hide completed is checked, filter tasks
-        return Tasks.find( {checked: {$ne:true } }, {sort: {createdAt:-1} });
-    }
-    //else return all tasks
-    return Tasks.find({}, {sort: {createdAt:-1} });
-    },
+    tasks(){
+        const instance = Template.instance();
+        if (instance.state.get('hideCompleted')){
+            //if hide completed is checked, filter tasks
+            return Tasks.find( {checked: {$ne:true } }, {sort: {createdAt:-1} });
+        }
+        //else return all tasks
+        return Tasks.find({}, {sort: {createdAt:-1} });
+        },
     incompleteCount(){
-        return Tasks.find({ checked: { $ne:true } }).count();
+            return Tasks.find({ checked: { $ne:true } }).count();
     },
+    showAnalytics() {
+        const instance = Template.instance();
+        return instance.state.get('showAnalytics') ? true:false
+      },
+
 });
 
 Template.body.events({
@@ -47,5 +53,8 @@ Template.body.events({
     },
     "change .hide-completed input"(event, instance) {
         instance.state.set('hideCompleted', event.target.checked)
+    },
+    'change .show-analytics input'(event,instance){
+        instance.state.set('showAnalytics', event.target.checked)
     },
 });

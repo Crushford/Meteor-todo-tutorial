@@ -2,13 +2,22 @@
     <div class="container">
         <header><h1>Todo List ({{incompleteCount}})</h1>
         </header>
-
+        
+        <label class="show-analytics">
+            <input type="checkbox" />
+            Analytics
+        </label>
+<br/>
         <label class="hide-completed">
             <input type="checkbox" />
             Hide Completed tasks
         </label>
 
         {{> loginButtons}}
+
+        {{#if showAnalytics}}
+        {{>analytics}}
+        {{/if}}
 
         {{#if currentUser}}
             <form class="new-task">
